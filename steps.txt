@@ -1,0 +1,57 @@
+steps:
+#rememeber to remove reac readme file
+
+#dependencies
+- npm i -D hardhat
+- npx hardhat > boiler plate and packages
+- npm install @openzeppelin/contracts
+- chackra ui for styling
+
+#work on the contract:
+import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
+
+-something from the comments section:
+yeah the for loop doesn't run if the require fails. I'm also updating the line before with the require, changing <= to < 
+require(walletMints[msg.sender] + quantity_ < maxPerWallet, 'Wallet mint max reached.');
+
+# we go to scripts for hardhat
+-change Greeter to our contract name
+
+# few things/ sites to visit:
+-infura and create and app and copy rinkey url: https..
+- etherscan to create your api key
+- your account private key on metamask
+
+#env
+- npm i dotenv
+-api key etherscan
+-private key metamast
+-infura rpc for rinkeby
+- after installing dotenv, we need to go to hardhat.config to pass it:
+-const dotenv = require("dotenv");
+-dotenv.config();
+
+#hardhat config:
+module.exports = {
+	solidity: '0.8.4',
+	networks: {
+		rinkeby: {
+			url: process.env.REACT_APP_RINKEBY_RPC_URL,
+			accounts: process.env.REACT_APP_REACT_APP_PRIVATE_KEY,
+		},
+	},
+
+	etherscan: {
+		apikey: process.env.REACT_APP_ETHERSCAN_KEY,
+	},
+};
+
+#deploying
+- before deploying, install another dependency:
+ npm i @nomiclabs/hardhat-waffle
+-npx hardhat clean // create cache
+-npx hardhat compile // create a
+rtifacts
+-#actual line that deploy the contract:
+- npx hardhat run scripts/deployRoboPunks.js --network rinkeby
+
