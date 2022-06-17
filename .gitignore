@@ -136,3 +136,6 @@ typechain
 #Hardhat files
 cache
 artifacts
+
+#others
+/nft-minting-app/extras
