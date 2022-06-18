@@ -6,6 +6,7 @@ steps:
 - npx hardhat > boiler plate and packages
 - npm install @openzeppelin/contracts
 - chackra ui for styling
+-npm i @nomiclabs/hardhat-waffle
 
 #work on the contract:
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
@@ -16,6 +17,7 @@ require(walletMints[msg.sender] + quantity_ < maxPerWallet, 'Wallet mint max rea
 
 # we go to scripts for hardhat
 -change Greeter to our contract name
+- const robopunks = await RoboPunks.deploy();> remove 'hello hardhat'..it will error up saying too many arguments in the constructor
 
 # few things/ sites to visit:
 -infura and create and app and copy rinkey url: https..
@@ -37,7 +39,7 @@ module.exports = {
 	networks: {
 		rinkeby: {
 			url: process.env.REACT_APP_RINKEBY_RPC_URL,
-			accounts: process.env.REACT_APP_PRIVATE_KEY,
+			accounts:[ process.env.REACT_APP_PRIVATE_KEY],
 		},
 	},
 
@@ -48,10 +50,76 @@ module.exports = {
 
 #deploying
 - before deploying, install another dependency:
- npm i @nomiclabs/hardhat-waffle
+ 
 -npx hardhat clean // create cache
 -npx hardhat compile // create a
 rtifacts
 -#actual line that deploy the contract:
 - npx hardhat run scripts/deployRoboPunks.js --network rinkeby
 
+#after the contract is deployed:
+-npm i @nomiclabs/hardhat-etherscan // plugin helps you verify the source code for your Solidity contracts on Etherscan.
+- efore verifying, pleace check that the apikey , K is capital, its apiKey and 
+etherscan: {
+		apiKey: {
+			rinkeby: process.env.REACT_APP_ETHERSCAN_KEY,
+		},
+-npx hardhat verify --network rinkeby #contract adress from etherscan// this gave me an issue with nomiclabs, i had to either downgrade to 3.0.1 or upgrade to 3.0.3 >>>> npm i -s @nomiclabs/hardhat-etherscan@3.0.3
+
+#artifacts RoboPunks json file
+-copy it in the source folder
+
+############frontend now########
+#dependencies:
+- npm i @chakra-ui/react @emotion/react@^11 @emotion/styled@^11 framer-motion@^6
+
+#app.js
+import {useState} from 'react';
+import MainMint from './MainMint';
+import NavBar from './NavBar';
+
+- set state variables for accounts:
+const[accounts,setAccounts] = useState([])
+-render the NavBar and MainMint with the states set to accounts = {accounts} setAccounts = {setAccounts}
+
+
+#navbar
+-rafce
+- function takes in {accounts, setAccounts}
+- create a variable  to check if connected and grab the first account:
+const isConnected = Boolean(accounts[0])
+- create an async function to check if metamask is connected:
+async function(){
+	if(window.ethereum){
+		//if connected, then grab the first account
+		const accounts = await window.ethereum.request({
+            method: 'eth_requestAccounts'
+        })
+
+	}
+}
+
+- under the return , we will have two sections:
+  -left side:
+    -social media icons
+  -right side:
+    -About, Mint, Team
+- check if isConnected,we gonna have a paragraph which says connected, otherwise we gonna have a button which says connect
+
+#MainMint
+-rafce
+-few imports:
+  import { useState } from 'react';
+  import {ethers, BigNumber} from 'ethers'
+  import roboPunks from '../RoboPunks.json'
+- bring in the account from metamask outside of the component:
+const roboPunksAddress = '0x168c06D4857C77476528B06eCDb81916362A17B4';
+- within the account:
+- set state variables of accounts and setAccounts
+- set another for isConnected, which is a Boolean and takes accounts at index 0
+- async function to test whether metamask is connected:
+async function handleMinta(){
+	if(window.ethereum){
+		const provider = new ethers.providers.Web3Provider(window.ethereum);//way for ether to connect to the blockchain
+	}
+}

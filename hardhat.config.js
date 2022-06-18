@@ -1,15 +1,18 @@
-require("@nomiclabs/hardhat-waffle");
-const dotenv = require('dotenv');
-dotenv.config();
+require('@nomiclabs/hardhat-waffle');
+require('@nomiclabs/hardhat-etherscan');
+
+// const dotenv = require('dotenv');
+// dotenv.config();
+require('dotenv').config();
 
 // This is a sample Hardhat task. To learn how to create your own go to
 // https://hardhat.org/guides/create-task.html
-task("accounts", "Prints the list of accounts", async (taskArgs, hre) => {
-  const accounts = await hre.ethers.getSigners();
+task('accounts', 'Prints the list of accounts', async (taskArgs, hre) => {
+	const accounts = await hre.ethers.getSigners();
 
-  for (const account of accounts) {
-    console.log(account.address);
-  }
+	for (const account of accounts) {
+		console.log(account.address);
+	}
 });
 
 // You need to export an object to set up your config
@@ -23,11 +26,13 @@ module.exports = {
 	networks: {
 		rinkeby: {
 			url: process.env.REACT_APP_RINKEBY_RPC_URL,
-			accounts: process.env.REACT_APP_PRIVATE_KEY,
+			accounts: [process.env.REACT_APP_PRIVATE_KEY],
 		},
 	},
 
 	etherscan: {
-		apikey: process.env.REACT_APP_ETHERSCAN_KEY,
+		apiKey: {
+			rinkeby: process.env.REACT_APP_ETHERSCAN_KEY,
+		},
 	},
 };
