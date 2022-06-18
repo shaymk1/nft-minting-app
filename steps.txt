@@ -5,7 +5,7 @@ steps:
 - npm i -D hardhat
 - npx hardhat > boiler plate and packages
 - npm install @openzeppelin/contracts
-- chackra ui for styling
+- npm i @chakra-ui/react
 -npm i @nomiclabs/hardhat-waffle
 
 #work on the contract:

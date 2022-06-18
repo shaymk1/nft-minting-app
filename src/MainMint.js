@@ -1,6 +1,6 @@
 import { BigNumber, ethers } from 'ethers';
 import { useState } from 'react';
-import roboPunks from '../RoboPunks.json';
+import roboPunks from './RoboPunks.json';
 
 const roboPunksAddress = '0x168c06D4857C77476528B06eCDb81916362A17B4';
 
@@ -62,8 +62,6 @@ const MainMint = ({ accounts, setAccounts }) => {
 			</div>
 		);
 	}
-
-	
 };
 
 export default MainMint;

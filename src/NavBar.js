@@ -1,5 +1,9 @@
 
 import React from 'react'
+import { Box, Button, Flex, Image, Spacer, Link} from '@chackra-ui/react'
+import Facebook from './assets/assets/social-media-icons/facebook_32x32.png'
+import Twitter from './assets/assets/social-media-icons/twitter_32x32.png';
+import Email from './assets/assets/social-media-icons/email_32x32.png';
 
 const NavBar = ({accounts, setAccounts}) => {
     const isConnected = Boolean(accounts[0])
@@ -29,8 +33,8 @@ const NavBar = ({accounts, setAccounts}) => {
 			{isConnected ? (
 				<p>connect</p>
 			) : (
-				<button onClick={connectAccounts}>
-                Connect
+				<button  onClick={connectAccounts}>
+                Connected
                 </button>
 			)}
 		</div>
